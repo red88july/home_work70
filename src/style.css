@@ -4,3 +4,13 @@
   color: grey;
   text-decoration: none;
 }
+
+.pic-notfound {
+  width: 800px;
+  height: 800px;
+}
+
+.pic-preview {
+  width: 100px;
+  height: 100px;
+}

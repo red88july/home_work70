@@ -1,17 +1,16 @@
 import {Route, Routes} from 'react-router-dom';
 import '../src/style.css';
 import ContactForm from './component/ContactForm/ContactForm';
-import PageNoFoundPicture from '../../images/404PageNotFound.jpg';
+import PageNoFoundPicture from '../src/images/404PageNotFound.jpg';
 import Layout from './component/Layout/Layout.tsx';
 
 function App() {
-
   return (
       <Layout>
         <Routes>
           <Route path={'/new-contact'} element={<ContactForm/>}/>
           <Route path="*" element={(
-            <div className="container-fluid pic-container">
+            <div className="container-fluid pic-container d-flex justify-content-center">
               <img
                 className="pic-notfound"
                 src={PageNoFoundPicture}
