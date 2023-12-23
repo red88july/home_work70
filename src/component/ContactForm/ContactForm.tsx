@@ -1,33 +1,86 @@
 import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
+import {Contacts} from '../../types';
+import * as React from 'react';
+import DefaultPicture from '../../images/def-pic.png';
 
 const ContactForm = () => {
   const navigate = useNavigate();
+  const [contacts, setContacts] = useState<Contacts>({
+    name: '',
+    phone: '',
+    email: '',
+    photo: '',
+  });
+
+  const inputSet = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+    setContacts((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const photoPreview = () => (
+    <img
+      src={contacts.photo === '' ? DefaultPicture : contacts.photo}
+      alt={contacts.photo === '' ? 'default profile picture' : 'Profile photo'}
+      style={{width: '100px', height: '100px'}}
+    />
+  );
+
+  console.log('Data in local state', contacts);
 
   const handleClickBack = () => {
     navigate('/');
   };
+
   return (
     <div className="d-flex justify-content-center">
       <form className="w-50 mt-5">
         <div className="mb-3 d-flex align-items-center gap-4">
           <span className="fw-bold">Name</span>
-          <input type="text" className="form-control w-50" />
+          <input
+            type="text"
+            name="name"
+            value={contacts.name}
+            onChange={inputSet}
+            className="form-control w-50"
+            required/>
         </div>
         <div className="mb-3 d-flex align-items-center gap-4 ">
           <span className="fw-bold">Phone</span>
-          <input type="text" className="form-control w-50" />
+          <input
+            type="text"
+            name="phone"
+            value={contacts.phone}
+            onChange={inputSet}
+            className="form-control w-50"
+            required/>
         </div>
         <div className="mb-3 d-flex align-items-center gap-4">
           <span className="fw-bold">E-mail</span>
-          <input type="email" className="form-control w-50" />
+          <input
+            type="email"
+            name="email"
+            value={contacts.email}
+            onChange={inputSet}
+            className="form-control w-50"/>
         </div>
         <div className="mb-3 d-flex align-items-center gap-4">
           <span className="fw-bold">Photo</span>
-          <input type="text" className="form-control w-50" />
+          <input
+            type="text"
+            name="photo"
+            value={contacts.photo}
+            onChange={inputSet}
+            className="form-control w-50"/>
         </div>
         <div className="mb-3 d-flex align-items-center gap-4">
           <span className="fw-bold">Photo preview</span>
-         <div className="pic-preview border border-3"></div>
+          <div className="pic-preview border border-3 p-2">
+            {photoPreview ()}
+          </div>
         </div>
         <div className="d-flex gap-3">
           <button type="submit" className="btn btn-success">Save</button>
