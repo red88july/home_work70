@@ -3,9 +3,13 @@ import {useState} from 'react';
 import {Contacts} from '../../types';
 import * as React from 'react';
 import DefaultPicture from '../../images/def-pic.png';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../app/store.ts';
+import {postContact} from '../../containers/contactsThinks/contactsThinks.ts';
 
 const ContactForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const [contacts, setContacts] = useState<Contacts>({
     name: '',
     phone: '',
@@ -29,6 +33,23 @@ const ContactForm = () => {
     />
   );
 
+  const onFormSubmit = async (event:React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await dispatch(postContact(contacts));
+    } catch (e) {
+      console.log(`Fethching data is : ${e}`);
+    } finally {
+      setContacts((prevState) => ({
+        ...prevState,
+        name: '',
+        phone: '',
+        email: '',
+        photo: '',
+      }));
+    }
+  };
+
   console.log('Data in local state', contacts);
 
   const handleClickBack = () => {
@@ -37,7 +58,7 @@ const ContactForm = () => {
 
   return (
     <div className="d-flex justify-content-center">
-      <form className="w-50 mt-5">
+      <form onSubmit={onFormSubmit} className="w-50 mt-5">
         <div className="mb-3 d-flex align-items-center gap-4">
           <span className="fw-bold">Name</span>
           <input
