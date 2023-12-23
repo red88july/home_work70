@@ -11,6 +11,7 @@ const ContactForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [contacts, setContacts] = useState<Contacts>({
+    id: '',
     name: '',
     phone: '',
     email: '',
@@ -19,8 +20,10 @@ const ContactForm = () => {
 
   const inputSet = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
+    const genId = Math.random().toString();
     setContacts((prevState) => ({
       ...prevState,
+      id: genId,
       [name]: value,
     }));
   };
@@ -38,19 +41,19 @@ const ContactForm = () => {
     try {
       await dispatch(postContact(contacts));
     } catch (e) {
-      console.log(`Fethching data is : ${e}`);
+      console.log(`Fethching data with error : ${e}`);
     } finally {
       setContacts((prevState) => ({
         ...prevState,
+        id: '',
         name: '',
         phone: '',
         email: '',
         photo: '',
       }));
+      navigate('/');
     }
   };
-
-  console.log('Data in local state', contacts);
 
   const handleClickBack = () => {
     navigate('/');
