@@ -3,13 +3,16 @@ import {useState} from 'react';
 import {Contacts} from '../../types';
 import * as React from 'react';
 import DefaultPicture from '../../images/def-pic.png';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../../app/store.ts';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../app/store.ts';
 import {postContact} from '../../containers/contactsThinks/contactsThinks.ts';
+import ButtonSpinner from '../Spinner/ButtonSpinner.tsx';
+
 
 const ContactForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const postForm = useSelector((state: RootState) => state.postLoading);
   const [contacts, setContacts] = useState<Contacts>({
     id: '',
     name: '',
@@ -107,8 +110,18 @@ const ContactForm = () => {
           </div>
         </div>
         <div className="d-flex gap-3">
-          <button type="submit" className="btn btn-success">Save</button>
-          <button type="submit" className="btn btn-secondary" onClick={handleClickBack}>Back to contacts</button>
+          <button
+            type="submit"
+            className="btn btn-success"
+            disabled={postForm}>
+            {postForm ? <ButtonSpinner/> : 'Save'}
+          </button>
+          <button
+            type="submit"
+            className="btn btn-secondary"
+            onClick={handleClickBack}>
+            Back to contacts
+          </button>
         </div>
       </form>
     </div>

@@ -4,11 +4,11 @@ import {Contacts, ContactsMutation} from '../../types';
 
 export const postContact = createAsyncThunk<void, Contacts>(
   'contact/postContact', async (contact) => {
-    await axiosApi.post('/contact.json', contact);
+      await axiosApi.post('/contact.json', contact);
   }
 );
 
-export const getContacts = createAsyncThunk<ContactsMutation[], undefined>(
+export const getContacts = createAsyncThunk<ContactsMutation[]>(
   'contact/getContact',
   async () => {
     try {
@@ -23,7 +23,7 @@ export const getContacts = createAsyncThunk<ContactsMutation[], undefined>(
 
       return contactsItemValue;
     } catch (error) {
-      console.error('Error fetching contacts:', error);
+      console.error(`Get request error with ${error}`);
       throw error;
     }
   }
