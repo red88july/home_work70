@@ -51,3 +51,16 @@ export const getFullContacts = createAsyncThunk<Contacts[]>(
         }
     }
 );
+
+export const deleteContact = createAsyncThunk<void, string>(
+  'contact/deleteContact',
+  async (oneContactId) => {
+      try {
+          console.log("Deleting contact with ID:", oneContactId);
+          await axiosApi.delete(`/contact/${oneContactId}.json`);
+          console.log("Contact deleted successfully");
+      } catch (error) {
+          console.error("Error deleting contact:", error);
+      }
+  }
+);

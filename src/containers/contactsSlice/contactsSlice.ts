@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getContacts, getFullContacts, postContact} from '../contactsThinks/contactsThinks.ts';
+import {deleteContact, getContacts, getFullContacts, postContact} from '../contactsThinks/contactsThinks.ts';
 import {Contacts, ContactsMutation} from '../../types';
 
 interface ContactsState {
@@ -8,6 +8,7 @@ interface ContactsState {
   postLoading: boolean;
   getLoading: boolean;
   getFullLoading:boolean;
+  deleteOneContact: boolean,
   actionModal: boolean;
   selected: string | null,
 }
@@ -18,6 +19,7 @@ const initialState: ContactsState = {
   postLoading: false,
   getLoading: false,
   getFullLoading:false,
+  deleteOneContact: false,
   actionModal: false,
   selected: null,
 };
@@ -66,6 +68,18 @@ export const contactsSlice = createSlice({
     });
     builder.addCase(getFullContacts.rejected, (state) => {
       state.getFullLoading = false;
+    });
+
+    builder.addCase(deleteContact.pending, (state) => {
+      state.deleteOneContact = true;
+    });
+    builder.addCase(deleteContact.fulfilled, (state) => {
+      console.log("Contact deleted successfully");
+      state.deleteOneContact = false;
+    });
+    builder.addCase(deleteContact.rejected, (state ,action) => {
+      console.error("Error deleting contact:", action.error.message);
+      state.deleteOneContact = false;
     });
   }
 });
