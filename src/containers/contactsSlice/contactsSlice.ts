@@ -7,7 +7,7 @@ interface ContactsState {
   itemFull: Contacts[];
   postLoading: boolean;
   getLoading: boolean;
-  getfullLoading:boolean;
+  getFullLoading:boolean;
   actionModal: boolean;
   selected: string | null,
 }
@@ -17,7 +17,7 @@ const initialState: ContactsState = {
   itemFull: [],
   postLoading: false,
   getLoading: false,
-  getfullLoading:false,
+  getFullLoading:false,
   actionModal: false,
   selected: null,
 };
@@ -58,20 +58,19 @@ export const contactsSlice = createSlice({
       state.getLoading = false;
     });
     builder.addCase(getFullContacts.pending, (state) => {
-      state.getfullLoading = true;
+      state.getFullLoading = true;
     });
     builder.addCase(getFullContacts.fulfilled, (state, {payload: itemFull}) => {
-      state.getfullLoading = false;
+      state.getFullLoading = false;
       state.itemFull = itemFull;
     });
     builder.addCase(getFullContacts.rejected, (state) => {
-      state.getfullLoading = false;
+      state.getFullLoading = false;
     });
   }
 });
 
 export const contactReducers = contactsSlice.reducer;
-
 export const {
   increase,
   deacrese,

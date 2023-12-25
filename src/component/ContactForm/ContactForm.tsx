@@ -1,13 +1,12 @@
+import * as React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 import {Contacts} from '../../types';
-import * as React from 'react';
-import DefaultPicture from '../../images/def-pic.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../app/store.ts';
 import {postContact} from '../../containers/contactsThinks/contactsThinks.ts';
-import ButtonSpinner from '../Spinner/ButtonSpinner.tsx';
-
+import ButtonSpinner from '../Spinner/ButtonSpinner';
+import DefaultPicture from '../../images/def-pic.png';
 
 const ContactForm = () => {
   const navigate = useNavigate();

@@ -45,7 +45,7 @@ const ContactsItem = () => {
                     ))}
                 </div>
             </div>
-            <Modal/>
+            <Modal />
         </>
     );
 };

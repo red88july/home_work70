@@ -20,12 +20,10 @@ const Modal = () => {
   };
 
   const handleOnClickBack = () => {
-    console.log("Setting selected contact (handleOnClickBack):", selected);
     dispatch(increase());
   };
 
   const closeModal = () => {
-    console.log("Setting selected contact (closeModal):", selected);
     dispatch(deacrese());
   };
 
