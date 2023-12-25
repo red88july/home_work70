@@ -69,16 +69,13 @@ export const contactsSlice = createSlice({
     builder.addCase(getFullContacts.rejected, (state) => {
       state.getFullLoading = false;
     });
-
     builder.addCase(deleteContact.pending, (state) => {
       state.deleteOneContact = true;
     });
     builder.addCase(deleteContact.fulfilled, (state) => {
-      console.log("Contact deleted successfully");
       state.deleteOneContact = false;
     });
-    builder.addCase(deleteContact.rejected, (state ,action) => {
-      console.error("Error deleting contact:", action.error.message);
+    builder.addCase(deleteContact.rejected, (state) => {
       state.deleteOneContact = false;
     });
   }

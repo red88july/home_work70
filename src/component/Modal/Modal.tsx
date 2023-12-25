@@ -29,11 +29,10 @@ const Modal = () => {
         dispatch(deacrese());
     };
 
-    const removeContact = async (e: React.MouseEvent) => {
+    const removeContact = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const id = selected;
         if (id) {
-            console.log("Deleting contact with ID:", id);
             await dispatch(deleteContact(id));
             await dispatch(getFullContacts());
         }
