@@ -4,7 +4,7 @@ import {Contacts, ContactsMutation} from '../../types';
 
 export const postContact = createAsyncThunk<void, Contacts>(
   'contact/postContact', async (contact) => {
-      await axiosApi.post('/contact.json', contact);
+    await axiosApi.post('/contact.json', contact);
   }
 );
 
@@ -30,37 +30,31 @@ export const getContacts = createAsyncThunk<ContactsMutation[]>(
 );
 
 export const getFullContacts = createAsyncThunk<Contacts[]>(
-    'contact/getFullContacts',
-    async () => {
-        try {
-            const response = await axiosApi.get<Contacts>('/contact.json');
-            const contactsFull = response.data;
+  'contact/getFullContacts',
+  async () => {
+    try {
+      const response = await axiosApi.get<Contacts>('/contact.json');
+      const contactsFull = response.data;
 
-            const contactsItemValue = Object.values(contactsFull).map((contact) => ({
-                id: contact.id,
-                name: contact.name,
-                email: contact.email,
-                phone: contact.phone,
-                photo: contact.photo,
-            }));
+      const contactsItemValue = Object.values(contactsFull).map((contact) => ({
+        id: contact.id,
+        name: contact.name,
+        email: contact.email,
+        phone: contact.phone,
+        photo: contact.photo,
+      }));
 
-            return contactsItemValue;
-        } catch (error) {
-            console.error(`Get request error with ${error}`);
-            throw error;
-        }
+      return contactsItemValue;
+    } catch (error) {
+      console.error(`Get request error with ${error}`);
+      throw error;
     }
+  }
 );
 
 export const deleteContact = createAsyncThunk<void, string>(
   'contact/deleteContact',
   async (oneContactId) => {
-      try {
-          console.log("Deleting contact with ID:", oneContactId);
-          await axiosApi.delete(`/contact/${oneContactId}.json`);
-          console.log("Contact deleted successfully");
-      } catch (error) {
-          console.error("Error deleting contact:", error);
-      }
+    await axiosApi.delete(`/contact/${oneContactId}.json`);
   }
 );
