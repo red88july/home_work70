@@ -54,7 +54,6 @@ const ContactForm = () => {
         email: '',
         photo: '',
       }));
-      navigate('/');
     }
   };
 

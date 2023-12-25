@@ -28,3 +28,26 @@ export const getContacts = createAsyncThunk<ContactsMutation[]>(
     }
   }
 );
+
+export const getFullContacts = createAsyncThunk<Contacts[]>(
+    'contact/getFullContacts',
+    async () => {
+        try {
+            const response = await axiosApi.get<Contacts>('/contact.json');
+            const contactsFull = response.data;
+
+            const contactsItemValue = Object.values(contactsFull).map((contact) => ({
+                id: contact.id,
+                name: contact.name,
+                email: contact.email,
+                phone: contact.phone,
+                photo: contact.photo,
+            }));
+
+            return contactsItemValue;
+        } catch (error) {
+            console.error(`Get request error with ${error}`);
+            throw error;
+        }
+    }
+);

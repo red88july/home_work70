@@ -1,23 +1,41 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getContacts, postContact} from '../contactsThinks/contactsThinks.ts';
-import {ContactsMutation} from '../../types';
+import {getContacts, getFullContacts, postContact} from '../contactsThinks/contactsThinks.ts';
+import {Contacts, ContactsMutation} from '../../types';
 
 interface ContactsState {
   item: ContactsMutation[];
+  itemFull: Contacts[];
   postLoading: boolean;
   getLoading: boolean;
+  getfullLoading:boolean;
+  actionModal: boolean;
+  selected: string | null,
 }
 
 const initialState: ContactsState = {
   item: [],
+  itemFull: [],
   postLoading: false,
   getLoading: false,
+  getfullLoading:false,
+  actionModal: false,
+  selected: null,
 };
 
 export const contactsSlice = createSlice({
   name: 'contact',
   initialState,
-  reducers: {},
+  reducers: {
+    increase: (state) => {
+      state.actionModal = true;
+    },
+    deacrese: (state) => {
+      state.actionModal = false;
+    },
+    contactsId: (state, action) => {
+      state.selected = action.payload;
+    }
+  },
 
   extraReducers: (builder) => {
     builder.addCase(postContact.pending, (state) => {
@@ -39,7 +57,23 @@ export const contactsSlice = createSlice({
     builder.addCase(getContacts.rejected, (state) => {
       state.getLoading = false;
     });
+    builder.addCase(getFullContacts.pending, (state) => {
+      state.getfullLoading = true;
+    });
+    builder.addCase(getFullContacts.fulfilled, (state, {payload: itemFull}) => {
+      state.getfullLoading = false;
+      state.itemFull = itemFull;
+    });
+    builder.addCase(getFullContacts.rejected, (state) => {
+      state.getfullLoading = false;
+    });
   }
 });
 
 export const contactReducers = contactsSlice.reducer;
+
+export const {
+  increase,
+  deacrese,
+  contactsId
+} = contactsSlice.actions;
