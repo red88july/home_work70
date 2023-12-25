@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {deleteContact, getFullContacts} from '../../containers/contactsThinks/contactsThinks.ts';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../app/store.ts';
-import {deacrese, increase} from '../../containers/contactsSlice/contactsSlice.ts';
+import {endEventForModal, startEventForModal} from '../../containers/contactsSlice/contactsSlice.ts';
 import Backdrop from "../Backdrop/Backdrop";
 import ButtonSpinner from "../Spinner/ButtonSpinner";
 
@@ -22,11 +22,11 @@ const Modal = () => {
     };
 
     const handleOnClickBack = () => {
-        dispatch(increase());
+        dispatch(startEventForModal());
     };
 
     const closeModal = () => {
-        dispatch(deacrese());
+        dispatch(endEventForModal());
     };
 
     const removeContact = async (e: React.MouseEvent<HTMLButtonElement>) => {

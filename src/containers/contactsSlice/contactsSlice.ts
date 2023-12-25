@@ -28,10 +28,10 @@ export const contactsSlice = createSlice({
   name: 'contact',
   initialState,
   reducers: {
-    increase: (state) => {
+    startEventForModal: (state) => {
       state.actionModal = true;
     },
-    deacrese: (state) => {
+    endEventForModal: (state) => {
       state.actionModal = false;
     },
     contactsId: (state, action) => {
@@ -83,7 +83,7 @@ export const contactsSlice = createSlice({
 
 export const contactReducers = contactsSlice.reducer;
 export const {
-  increase,
-  deacrese,
+  startEventForModal,
+  endEventForModal,
   contactsId
 } = contactsSlice.actions;

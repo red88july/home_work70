@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../app/store.ts';
 import {getContacts} from '../../containers/contactsThinks/contactsThinks.ts';
-import {contactsId, increase} from '../../containers/contactsSlice/contactsSlice.ts';
+import {contactsId, startEventForModal} from '../../containers/contactsSlice/contactsSlice.ts';
 import SpinnerBig from '../Spinner/SpinnerBig';
 import Modal from "../Modal/Modal";
 
@@ -17,7 +17,7 @@ const ContactsItem = () => {
 
     const clickOnContact = (contactId: string) => {
         dispatch(contactsId(contactId));
-        dispatch(increase());
+        dispatch(startEventForModal());
     };
 
     return (
